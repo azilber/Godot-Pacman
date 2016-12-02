@@ -15,12 +15,8 @@ func _input(event):
     if(event.type == InputEvent.MOUSE_BUTTON and event.button_index == 1 and event.is_pressed() and !event.is_echo()):
         var clicked_tile = tilemap.world_to_map_with_offset(event.pos)
         var ghost_tile   = tilemap.world_to_map(get_pos())
-
-        print("Path from: " + str(ghost_tile) + " to: " +  str(clicked_tile))
-
         current_path = tilemap.get_path_to_from(clicked_tile, ghost_tile)
-        print(current_path)
-
+        
     if(event.type == InputEvent.MOUSE_BUTTON and event.button_index == 2 and event.is_pressed() and !event.is_echo()):
         set_pos(event.pos - tilemap.get_pos())
         current_path = []

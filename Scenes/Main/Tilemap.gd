@@ -4,8 +4,8 @@ export(int) var PILL_TILE_ID     = 16
 export(int) var PILL_BIG_TILE_ID = 17
 export(int) var PACMAN_TILE_ID   = 18
 
-export(int) var MAP_WIDTH  = 27
-export(int) var MAP_HEIGHT = 30
+export(int) var MAP_WIDTH  = 28
+export(int) var MAP_HEIGHT = 31
 
 var spawn_position
 
@@ -83,41 +83,43 @@ func generate_path_nodes():
     astar.clear()
 
     # Look at every cell and add a node to that position
-    for cell in get_used_cells():
-        # The id is the position on the grid the node is
-        # This makes it easy and quick to find later when adding neighbours
-        var id = (cell.y * MAP_WIDTH) + cell.x
+    for x in range(MAP_WIDTH):
+        for y in range(MAP_HEIGHT):
+            # The id is the position on the grid the node is
+            # This makes it easy and quick to find later when adding neighbours
+            var id = (y * MAP_WIDTH) + x
 
-        # Add the world position to hand back when we ask for a path
-        var pos = map_to_world(cell)
+            # Add the world position to hand back when we ask for a path
+            var pos = map_to_world(Vector2(x,y))
 
-        # Astar works with Vector3 and we're in 2d, so we'll ignore the Z axis with a 0
-        astar.add_point(id, Vector3(pos.x, pos.y, 0))
+            # Astar works with Vector3 and we're in 2d, so we'll ignore the Z axis with a 0
+            astar.add_point(id, Vector3(pos.x, pos.y, 0))
 
     # Now connect the nodes neighbours
-    for cell in get_used_cells():
-        # Skip this cell if it's a wall, it will have no neighbours
-        if(tile_at_pos_is_wall(cell)):
-            continue
+    for x in range(MAP_WIDTH):
+        for y in range(MAP_HEIGHT):
+            # Skip this cell if it's a wall, it will have no neighbours
+            if(tile_at_pos_is_wall(Vector2(x,y))):
+                continue
 
-        # Get the tile id for the current cell
-        var cell_id = (cell.y * MAP_WIDTH) + cell.x
+            # Get the tile id for the current cell
+            var cell_id = (y * MAP_WIDTH) + x
 
-        # UP: If we're not on the first row and the tile above is not a wall add as neighbour
-        if(cell.y > 0 && !tile_at_pos_is_wall(Vector2(cell.x, cell.y - 1))):
-            astar.connect_points(cell_id, (cell.y - 1 * MAP_WIDTH) + cell.x)
+            # UP: If we're not on the first row and the tile above is not a wall add as neighbour
+            if(y > 0 && !tile_at_pos_is_wall(Vector2(x, y - 1))):
+                astar.connect_points(cell_id, get_node_id_at(x, y - 1))
 
-        # DOWN: If we're under MAP_HEIGHT - 1 and the tile below is not a wall add as neighbour
-        if(cell.y < MAP_HEIGHT && !tile_at_pos_is_wall(Vector2(cell.x, cell.y + 1))):
-            astar.connect_points(cell_id, (cell.y + 1 * MAP_WIDTH) + cell.x)
+            # DOWN: If we're under MAP_HEIGHT - 1 and the tile below is not a wall add as neighbour
+            if(y < MAP_HEIGHT && !tile_at_pos_is_wall(Vector2(x, y + 1))):
+                astar.connect_points(cell_id, get_node_id_at(x, y + 1))
 
-        # LEFT: If we're not on the first column and the tile left is not a wall add as neighbour
-        if(cell.x > 0 && !tile_at_pos_is_wall(Vector2(cell.x - 1, cell.y))):
-            astar.connect_points(cell_id, (cell.y * MAP_WIDTH) + cell.x - 1)
+            # LEFT: If we're not on the first column and the tile left is not a wall add as neighbour
+            if(x > 0 && !tile_at_pos_is_wall(Vector2(x - 1, y))):
+                astar.connect_points(cell_id, get_node_id_at(x - 1, y))
 
-        # RIGHT: If we're not on the first column and the tile right is not a wall add as neighbour
-        if(cell.x > 0 && !tile_at_pos_is_wall(Vector2(cell.x + 1, cell.y))):
-            astar.connect_points(cell_id, (cell.y * MAP_WIDTH) + cell.x + 1)
+            # RIGHT: If we're not on the last column and the tile right is not a wall add as neighbour
+            if(x < MAP_WIDTH && !tile_at_pos_is_wall(Vector2(x + 1, y))):
+                astar.connect_points(cell_id, get_node_id_at(x + 1, y))
 
 func get_node_id_atv(pos):
     return (pos.y * MAP_WIDTH) + pos.x
