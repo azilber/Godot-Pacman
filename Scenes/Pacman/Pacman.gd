@@ -1,7 +1,7 @@
 extends Sprite
 
 # References
-var tilemap
+onready var tilemap = get_parent()
 
 # Movement
 var speed = 100 # Movement Speed
@@ -9,9 +9,6 @@ var target_pos  # The position
 
 var current_dir = "left" # Current direction
 var target_dir  = "left" # Last direction pressed
-
-func set_tilemap(_tilemap):
-    tilemap = _tilemap
 
 func set_tilemap_position(pos):
     set_pos(pos)

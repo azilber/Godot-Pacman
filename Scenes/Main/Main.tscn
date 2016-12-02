@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://Scenes/Main/Main.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Tiles/Tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://Scenes/Main/Tilemap.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/Pacman/Pacman.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Ghost/Ghost.tscn" type="PackedScene" id=5]
 
 [node name="Game" type="Node"]
 
@@ -39,6 +40,10 @@ MAP_HEIGHT = 30
 
 visibility/visible = false
 transform/pos = Vector2( -8, -40 )
+
+[node name="Ghost" parent="Tilemap" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 20.1736, 18.9889 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 

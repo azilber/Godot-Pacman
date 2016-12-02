@@ -25,9 +25,15 @@ func eat_dot_at(pos):
 func tile_at_pos_is_wall(pos):
     return tile_id_is_wall(get_cellv(pos))
 
+# Gets a path of Vector3s from grid positions
+func get_path_to_from(to, from):
+    var to_id   = get_node_id_atv(to)
+    var from_id = get_node_id_atv(from)
+    return astar.get_point_path(from_id, to_id);
+
 # "Private" methods
 func _ready():
-    set_process_input(true)
+    #set_process_input(true)
     make_walls_tile_aware()
     generate_path_nodes()
     set_spawn_position()
@@ -75,7 +81,7 @@ func generate_path_nodes():
 
     # Remove any previous pathing data
     astar.clear()
-    
+
     # Look at every cell and add a node to that position
     for cell in get_used_cells():
         # The id is the position on the grid the node is
@@ -112,3 +118,9 @@ func generate_path_nodes():
         # RIGHT: If we're not on the first column and the tile right is not a wall add as neighbour
         if(cell.x > 0 && !tile_at_pos_is_wall(Vector2(cell.x + 1, cell.y))):
             astar.connect_points(cell_id, (cell.y * MAP_WIDTH) + cell.x + 1)
+
+func get_node_id_atv(pos):
+    return (pos.y * MAP_WIDTH) + pos.x
+
+func get_node_id_at(x, y):
+    return (y * MAP_WIDTH) + x

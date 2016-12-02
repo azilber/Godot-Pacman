@@ -8,8 +8,6 @@ onready var tilemap = get_node("Tilemap")
 onready var pacman  = get_node("Tilemap/Pacman")
 
 func _ready():
-    # Setup pacmans references and hide him
-    pacman.set_tilemap(tilemap)
     pacman.set_hidden(true)
     start_game()
 
