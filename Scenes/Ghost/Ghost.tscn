@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://Scenes/Ghost/ghosts.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Ghost/Ghost.gd" type="Script" id=2]
+
+[node name="Ghost" type="Sprite"]
+
+texture = ExtResource( 1 )
+centered = false
+hframes = 4
+script/script = ExtResource( 2 )
+
+
