@@ -16,9 +16,9 @@ onready var astar = AStar.new()
 # Removes the dot at a given tile position if there is one
 # And fires off signals that a dot has been eaten
 func eat_dot_at(pos):
-    if(get_cellv(pos) == PILL_TILE_ID):
+    if get_cellv(pos) == PILL_TILE_ID:
         set_cellv(pos, -1)
-    if(get_cellv(pos) == PILL_BIG_TILE_ID):
+    if get_cellv(pos) == PILL_BIG_TILE_ID:
         set_cellv(pos, -1)
 
 # Checks that a tile at a position is a wall
@@ -39,7 +39,7 @@ func _ready():
     set_spawn_position()
 
 func _input(event):
-    if(event.type == InputEvent.MOUSE_BUTTON and event.button_index == 1 and event.is_pressed() and !event.is_echo()):
+    if event.type == InputEvent.MOUSE_BUTTON and event.button_index == 1 and event.is_pressed() and !event.is_echo():
         toggle_wall_at(world_to_map_with_offset(event.pos))
 
 func world_to_map_with_offset(pos):
@@ -55,7 +55,7 @@ func toggle_wall_at(pos):
 
 func make_walls_tile_aware():
     for cell in get_used_cells():
-        if(tile_id_is_wall(get_cellv(cell))):
+        if tile_id_is_wall(get_cellv(cell)):
             var north = tile_id_is_wall(get_cell(cell.x, cell.y - 1))
             var east  = tile_id_is_wall(get_cell(cell.x + 1, cell.y))
             var south = tile_id_is_wall(get_cell(cell.x, cell.y + 1))
@@ -69,7 +69,7 @@ func tile_id_is_wall(id):
 
 func set_spawn_position():
     for cell in get_used_cells():
-        if(get_cellv(cell) == PACMAN_TILE_ID):
+        if get_cellv(cell) == PACMAN_TILE_ID:
             spawn_position = cell
             set_cellv(cell, -1)
             return
@@ -78,7 +78,6 @@ func set_spawn_position():
 
 # Generate the nodes to be places in the AStar class
 func generate_path_nodes():
-
     # Remove any previous pathing data
     astar.clear()
 
@@ -99,26 +98,26 @@ func generate_path_nodes():
     for x in range(MAP_WIDTH):
         for y in range(MAP_HEIGHT):
             # Skip this cell if it's a wall, it will have no neighbours
-            if(tile_at_pos_is_wall(Vector2(x,y))):
+            if tile_at_pos_is_wall(Vector2(x,y)):
                 continue
 
             # Get the tile id for the current cell
             var cell_id = (y * MAP_WIDTH) + x
 
             # UP: If we're not on the first row and the tile above is not a wall add as neighbour
-            if(y > 0 && !tile_at_pos_is_wall(Vector2(x, y - 1))):
+            if y > 0 && !tile_at_pos_is_wall(Vector2(x, y - 1)):
                 astar.connect_points(cell_id, get_node_id_at(x, y - 1))
 
             # DOWN: If we're under MAP_HEIGHT - 1 and the tile below is not a wall add as neighbour
-            if(y < MAP_HEIGHT && !tile_at_pos_is_wall(Vector2(x, y + 1))):
+            if y < MAP_HEIGHT && !tile_at_pos_is_wall(Vector2(x, y + 1)):
                 astar.connect_points(cell_id, get_node_id_at(x, y + 1))
 
             # LEFT: If we're not on the first column and the tile left is not a wall add as neighbour
-            if(x > 0 && !tile_at_pos_is_wall(Vector2(x - 1, y))):
+            if x > 0 && !tile_at_pos_is_wall(Vector2(x - 1, y)):
                 astar.connect_points(cell_id, get_node_id_at(x - 1, y))
 
             # RIGHT: If we're not on the last column and the tile right is not a wall add as neighbour
-            if(x < MAP_WIDTH && !tile_at_pos_is_wall(Vector2(x + 1, y))):
+            if x < MAP_WIDTH && !tile_at_pos_is_wall(Vector2(x + 1, y)):
                 astar.connect_points(cell_id, get_node_id_at(x + 1, y))
 
 func get_node_id_atv(pos):
