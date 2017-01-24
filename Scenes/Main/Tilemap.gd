@@ -29,7 +29,7 @@ func tile_at_pos_is_wall(pos):
 func get_path_to_from(to, from):
     var to_id   = get_node_id_atv(to)
     var from_id = get_node_id_atv(from)
-    return astar.get_point_path(from_id, to_id);
+    return astar.get_point_path(from_id, to_id)
 
 # "Private" methods
 func _ready():

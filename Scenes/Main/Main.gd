@@ -5,11 +5,15 @@ onready var tilemap = get_node("Tilemap")
 # Pacman is a child of tilemap because Tilemap is slightly offset so that
 # it's centered in the screen, pacman being a child means he can use local
 # position and always be aligned without needing to adjust for the tilemap offset
-onready var pacman  = get_node("Tilemap/Pacman")
+onready var pacman = get_node("Tilemap/Pacman")
 
 func _ready():
     pacman.set_hidden(true)
     start_game()
+    set_process(true)
+
+func _enter_tree():
+    get_node("Tilemap")
 
 func start_game():
     place_pacman()

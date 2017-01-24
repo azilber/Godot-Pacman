@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://Scenes/Main/Main.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Tiles/Tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://Scenes/Main/Tilemap.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/Pacman/Pacman.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Ghost/Ghost.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Fonts/kenpixel-12.fnt" type="BitmapFont" id=6]
+[ext_resource path="res://icon.png" type="Texture" id=7]
 
 [node name="Game" type="Node"]
 
@@ -38,7 +40,6 @@ MAP_HEIGHT = 31
 
 [node name="Pacman" parent="Tilemap" instance=ExtResource( 4 )]
 
-visibility/visible = false
 transform/pos = Vector2( -8, -40 )
 
 [node name="Ghost" parent="Tilemap" instance=ExtResource( 5 )]
@@ -53,12 +54,9 @@ offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 
-[node name="Panel" type="Panel" parent="UI"]
+[node name="GameUI" type="Control" parent="UI"]
 
-visibility/visible = false
-visibility/opacity = 0.5
 anchor/right = 1
-anchor/bottom = 1
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -66,6 +64,149 @@ size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
 margin/right = 0.0
-margin/bottom = 0.0
+margin/bottom = 40.0
+
+[node name="ScoreTitle" type="Label" parent="UI/GameUI"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 20.0
+margin/top = 6.0
+margin/right = 107.0
+margin/bottom = 37.0
+custom_fonts/font = ExtResource( 6 )
+text = "-Score-\n"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="HiScoreTitle" type="Label" parent="UI/GameUI"]
+
+anchor/left = 1
+anchor/top = 1
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 269.0
+margin/top = 34.0
+margin/right = 182.0
+margin/bottom = 3.0
+custom_fonts/font = ExtResource( 6 )
+text = "-Hi Score-"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="LivesTitle" type="Label" parent="UI/GameUI"]
+
+anchor/left = 1
+anchor/top = 1
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 94.0
+margin/top = 34.0
+margin/right = 7.0
+margin/bottom = 3.0
+custom_fonts/font = ExtResource( 6 )
+text = "-Lives-"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Score" type="Label" parent="UI/GameUI"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 12.0
+margin/top = 22.0
+margin/right = 102.0
+margin/bottom = 53.0
+custom_fonts/font = ExtResource( 6 )
+text = "000000000\n"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="HiScore" type="Label" parent="UI/GameUI"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 199.0
+margin/top = 22.0
+margin/right = 289.0
+margin/bottom = 53.0
+custom_fonts/font = ExtResource( 6 )
+text = "000000000\n"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Control" type="Control" parent="UI/GameUI"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 379.0
+margin/top = 22.0
+margin/right = 452.0
+margin/bottom = 38.0
+
+[node name="Life" type="TextureFrame" parent="UI/GameUI/Control"]
+
+rect/scale = Vector2( 0.2, 0.2 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 53.0
+margin/top = 2.0
+margin/right = 117.0
+margin/bottom = 66.0
+texture = ExtResource( 7 )
+stretch_mode = 0
+
+[node name="Life1" type="TextureFrame" parent="UI/GameUI/Control"]
+
+rect/scale = Vector2( 0.2, 0.2 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 33.0
+margin/top = 2.0
+margin/right = 97.0
+margin/bottom = 66.0
+texture = ExtResource( 7 )
+stretch_mode = 0
+
+[node name="Life2" type="TextureFrame" parent="UI/GameUI/Control"]
+
+rect/scale = Vector2( 0.2, 0.2 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 13.0
+margin/top = 2.0
+margin/right = 77.0
+margin/bottom = 66.0
+texture = ExtResource( 7 )
+stretch_mode = 0
 
 

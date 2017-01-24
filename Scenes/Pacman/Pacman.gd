@@ -7,12 +7,13 @@ onready var tilemap = get_parent()
 var speed = 100 # Movement Speed
 var target_pos  # The position
 
+# TODO: use an enum here
 var current_dir = "left" # Current direction
 var target_dir  = "left" # Last direction pressed
 
 func set_tilemap_position(pos):
     set_pos(pos)
-    target_pos = get_pos()
+    target_pos = get_pos()    
 
 func _process(delta):
     handle_input()
