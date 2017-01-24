@@ -38,7 +38,7 @@ func handle_movement(delta):
     # this way we can change direction and be in precisely line with the tiles.
     # We also tell the tilemap we want to eat the dot at this position, the tilemap will
     # check if there is one or not and handle the request
-    if(get_pos().distance_to(target_pos) < 1):
+    if get_pos().distance_to(target_pos) < 1:
         set_pos(target_pos)
         get_new_target_pos()
         tilemap.eat_dot_at(tilemap.world_to_map(get_pos()))
@@ -53,7 +53,7 @@ func get_new_target_pos():
     # First check to see if the target direction can be moved to
     # from this new tile, if it can set that as the new current direction.
     var target = get_vector_for_direction(target_dir)
-    if(!tilemap.tile_at_pos_is_wall(target)):
+    if !tilemap.tile_at_pos_is_wall(target):
         target_pos  = tilemap.map_to_world(target)
         current_dir = target_dir
         return
@@ -61,7 +61,7 @@ func get_new_target_pos():
     # we'll keep moving in the current direction we're moving, unless there is
     # a wall there as well
     target = get_vector_for_direction(current_dir)
-    if(!tilemap.tile_at_pos_is_wall(target)):
+    if !tilemap.tile_at_pos_is_wall(target):
         target_pos = tilemap.map_to_world(target)
         return
     # If there is a wall there just stop and think about what you've done.
@@ -70,11 +70,11 @@ func get_new_target_pos():
 # Returns the tile position of the tile in the direction given
 func get_vector_for_direction(d):
     var t_pos = tilemap.world_to_map(get_pos())
-    if(d == "left"):
+    if d == "left":
         return Vector2(t_pos.x - 1, t_pos.y)
-    if(d == "right"):
+    if d == "right":
         return Vector2(t_pos.x + 1, t_pos.y)
-    if(d == "up"):
+    if d == "up":
         return Vector2(t_pos.x, t_pos.y - 1)
-    if(d == "down"):
+    if d == "down":
         return Vector2(t_pos.x, t_pos.y + 1)

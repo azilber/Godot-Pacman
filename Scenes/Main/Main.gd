@@ -23,13 +23,13 @@ func start_game():
 # to where the tile was
 func place_pacman():
     # Sets the tilemaps spawn position based on the pacman
-    if(tilemap.spawn_position == null):
+    if tilemap.spawn_position == null:
         tilemap.set_spawn_position()
 
     # Place pacman in his position
     var cell_size = tilemap.get_cell_size()
-    var pac_x = (tilemap.spawn_position.x * cell_size.x)
-    var pac_y = (tilemap.spawn_position.y * cell_size.y)
+    var pac_x = tilemap.spawn_position.x * cell_size.x
+    var pac_y = tilemap.spawn_position.y * cell_size.y
     pacman.set_tilemap_position(Vector2(pac_x, pac_y))
 
     # Unhide him

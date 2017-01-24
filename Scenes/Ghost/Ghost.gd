@@ -11,12 +11,12 @@ func _ready():
     set_process_input(true)
 
 func _input(event):
-    if(event.type == InputEvent.MOUSE_BUTTON and event.button_index == 1 and event.is_pressed() and !event.is_echo()):
+    if event.type == InputEvent.MOUSE_BUTTON and event.button_index == 1 and event.is_pressed() and !event.is_echo():
         var clicked_tile = tilemap.world_to_map_with_offset(event.pos)
         var ghost_tile   = tilemap.world_to_map(get_pos())
         current_path = tilemap.get_path_to_from(clicked_tile, ghost_tile)
 
-    if(event.type == InputEvent.MOUSE_BUTTON and event.button_index == 2 and event.is_pressed() and !event.is_echo()):
+    if event.type == InputEvent.MOUSE_BUTTON and event.button_index == 2 and event.is_pressed() and !event.is_echo():
         set_pos(event.pos - tilemap.get_pos())
         current_path = []
 
@@ -32,7 +32,7 @@ func _draw():
 
 # Handles the movement of ghost
 func handle_movement_to_a_path(delta):
-    if(current_path.size() <= 0):
+    if current_path.size() <= 0:
         return
 
     var target_pos = Vector2(current_path[0].x, current_path[0].y)
@@ -41,7 +41,7 @@ func handle_movement_to_a_path(delta):
     var move_direction = (target_pos - get_pos()).normalized()
     set_pos(get_pos() + (move_direction * speed * delta))
 
-    if(get_pos().distance_to(target_pos) < 1):
+    if get_pos().distance_to(target_pos) < 1:
         set_pos(target_pos)
         current_path.remove(0)
 
