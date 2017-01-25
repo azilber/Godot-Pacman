@@ -44,7 +44,8 @@ transform/pos = Vector2( -8, -40 )
 
 [node name="Ghost" parent="Tilemap" instance=ExtResource( 5 )]
 
-transform/pos = Vector2( 192.415, 79.3599 )
+transform/pos = Vector2( 337.398, 191.762 )
+speed = 100
 
 [node name="UI" type="CanvasLayer" parent="."]
 

@@ -12,9 +12,6 @@ func _ready():
     start_game()
     set_process(true)
 
-func _enter_tree():
-    get_node("Tilemap")
-
 func start_game():
     place_pacman()
     pacman.set_process(true)
